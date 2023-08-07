@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+.section-content {
+    padding: 0 20px;
+}
+
+.inverted-section {
+    background-color: #101727;
+    color: #d3d3d3;
+}
+
+.jumbotron {
+    /* background-image: url('images/bg.jpg'); */
+    background-color: #101727;
+    background-size: cover;
+    color: white;
+    padding-bottom: 20px;
+    padding-top:20px;
+}
+
+.contact-form {
+    max-width: 500px;
+    margin:0 auto;
+    
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    color: black;
+    text-align: center;
+}
+
+.navbar {
+    background-color: transparent;
+}
+
+.navbar .nav-link {
+    color: white;
+}
+
+.navbar .nav-link:hover {
+    color: #ccc;
+}
+
+.section h2 {
+    text-align: center;
+}
