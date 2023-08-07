@@ -1,34 +1,34 @@
 import formidable from 'formidable'
 import nodemailer from 'nodemailer'
-
+import mailgun from 'nodemailer-mailgun-transport'
 const form = new formidable.IncomingForm()
 
-const formParse = (req) => new Promise((r, j) => form.parse(req, (e, f) => (!e ? r(f) : j(e))))
+const mailgunAuth = {
+  auth: {
+    api_key: "key-135020a4312b98bd9496669f8a4260b0",
+    domain: 'https://api.mailgun.net/v3/sandboxf38ed9710da047d3aa4c18897f86da43.mailgun.org/messages'
+  }
+}
 
+const formParse = (req) => new Promise((r, j) => form.parse(req, (e, f) => (!e ? r(f) : j(e))))
 export default async (req, res) => {
   try {
     const fields = await formParse(req)
     console.log(fields)
 
+    const sendTo = "info@tnano.com"; //for production send to 'info@tnano.com' for development send to 'dev@graphicsoft.com'
     // Define transporter, i.e., service that will send the email
-    let transporter = nodemailer.createTransport({
-      service: 'gmail', // replace with your email service
-      auth: {
-        user: 'yourEmail@gmail.com', // replace with your email address
-        pass: 'yourPassword' // replace with your email password
-      }
-    });
-
+    const smtpTransport = nodemailer.createTransport(mailgun(mailgunAuth));
     // Define email options
     let mailOptions = {
-      from: 'yourEmail@gmail.com', // sender address
-      to: 'targetEmail@gmail.com', // list of receivers
+      from: 'info@hydrosonix.com', // sender address
+      to: sendTo, // list of receivers
       subject: 'Form Submission', // Subject line
       text: JSON.stringify(fields) // plain text body
     };
 
     // Send email
-    transporter.sendMail(mailOptions, (error, info) => {
+    smtpTransport.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log(error);
       } else {
